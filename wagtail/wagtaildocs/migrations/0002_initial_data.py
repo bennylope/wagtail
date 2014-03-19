@@ -2,6 +2,7 @@
 from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import DataMigration
+from django.conf import settings
 from django.db import models, connection
 from django.db.transaction import set_autocommit
 
@@ -79,7 +80,7 @@ class Migration(DataMigration):
             'file': ('django.db.models.fields.files.FileField', [], {'max_length': '100'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'uploaded_by_user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'})
+            'uploaded_by_user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm[settings.AUTH_USER_MODEL]", 'null': 'True', 'blank': 'True'})
         }
     }
 

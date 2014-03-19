@@ -2,6 +2,7 @@
 from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
+from django.conf import settings
 from django.db import models
 
 
@@ -20,7 +21,7 @@ class Migration(SchemaMigration):
             ('created_at', self.gf('django.db.models.fields.DateTimeField')
              (auto_now_add=True, blank=True)),
             ('uploaded_by_user', self.gf('django.db.models.fields.related.ForeignKey')
-             (to=orm['auth.User'], null=True, blank=True)),
+             (to=orm[settings.AUTH_USER_MODEL], null=True, blank=True)),
         ))
         db.send_create_signal(u'wagtaildocs', ['Document'])
 
@@ -71,7 +72,7 @@ class Migration(SchemaMigration):
             'file': ('django.db.models.fields.files.FileField', [], {'max_length': '100'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'uploaded_by_user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'})
+            'uploaded_by_user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm[settings.AUTH_USER_MODEL]", 'null': 'True', 'blank': 'True'})
         }
     }
 

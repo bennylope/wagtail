@@ -2,6 +2,7 @@
 from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import DataMigration
+from django.conf import settings
 from django.db import models, connection
 from django.db.transaction import set_autocommit
 
@@ -9,7 +10,7 @@ class Migration(DataMigration):
 
     def forwards(self, orm):
         if connection.vendor == 'sqlite':
-            set_autocommit(True)    
+            set_autocommit(True)
         image_content_type, created = orm['contenttypes.ContentType'].objects.get_or_create(
             model='image', app_label='wagtailimages', defaults={'name': 'image'})
         add_permission, created = orm['auth.permission'].objects.get_or_create(
@@ -85,7 +86,7 @@ class Migration(DataMigration):
             'height': ('django.db.models.fields.IntegerField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'uploaded_by_user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'}),
+            'uploaded_by_user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm[settings.AUTH_USER_MODEL]", 'null': 'True', 'blank': 'True'}),
             'width': ('django.db.models.fields.IntegerField', [], {})
         },
         u'wagtailimages.rendition': {

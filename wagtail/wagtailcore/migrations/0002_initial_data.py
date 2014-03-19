@@ -2,6 +2,7 @@
 from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import DataMigration
+from django.conf import settings
 from django.db import models, connection
 from django.db.transaction import set_autocommit
 
@@ -9,7 +10,7 @@ class Migration(DataMigration):
 
     def forwards(self, orm):
         if connection.vendor == 'sqlite':
-            set_autocommit(True)    
+            set_autocommit(True)
         page_content_type, created = orm['contenttypes.contenttype'].objects.get_or_create(
             model='page', app_label='wagtailcore', defaults={'name': 'page'})
 
@@ -109,7 +110,7 @@ class Migration(DataMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'live': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'numchild': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
-            'owner': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'owned_pages'", 'null': 'True', 'to': u"orm['auth.User']"}),
+            'owner': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'owned_pages'", 'null': 'True', 'to': u"orm[settings.AUTH_USER_MODEL]"}),
             'path': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
             'search_description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'seo_title': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
@@ -125,7 +126,7 @@ class Migration(DataMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'page': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'revisions'", 'to': u"orm['wagtailcore.Page']"}),
             'submitted_for_moderation': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm[settings.AUTH_USER_MODEL]", 'null': 'True', 'blank': 'True'})
         },
         u'wagtailcore.site': {
             'Meta': {'object_name': 'Site'},
